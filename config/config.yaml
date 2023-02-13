@@ -1,0 +1,14 @@
+template:
+  name:
+  header: "worker processes 8;\n\nevents{\n    worker_connections 1024;\n}\nstream{\n"
+  footer: "}"
+
+ssh-configs:
+  - host: 127.0.0.1
+    port: 22
+    username: root
+    password: "123456"
+    type: "password"
+    rsa-path: ""
+    target-path: "/usr/local/nginx/conf"
+    nginx-path: "/usr/local/nginx/sbin/nginx"
