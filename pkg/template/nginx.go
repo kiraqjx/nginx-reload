@@ -2,9 +2,10 @@ package template
 
 import (
 	"fmt"
-	"nginx-reload/pkg/entity"
-	"nginx-reload/pkg/vo"
 	"strings"
+
+	"github.com/kiraqjx/nginx-reload/pkg/entity"
+	"github.com/kiraqjx/nginx-reload/pkg/vo"
 )
 
 type NginxTemplate struct {

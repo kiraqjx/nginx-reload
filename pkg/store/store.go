@@ -1,7 +1,7 @@
 package store
 
 import (
-	"nginx-reload/pkg/entity"
+	"github.com/kiraqjx/nginx-reload/pkg/entity"
 )
 
 type Store interface {

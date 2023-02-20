@@ -2,9 +2,10 @@ package template
 
 import (
 	"fmt"
-	"nginx-reload/pkg/entity"
-	"nginx-reload/pkg/vo"
 	"testing"
+
+	"github.com/kiraqjx/nginx-reload/pkg/entity"
+	"github.com/kiraqjx/nginx-reload/pkg/vo"
 )
 
 func TestTemplate(t *testing.T) {

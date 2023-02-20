@@ -10,5 +10,5 @@ ssh-configs:
     password: "123456"
     type: "password"
     rsa-path: ""
-    target-path: "/usr/local/nginx/conf"
-    nginx-path: "/usr/local/nginx/sbin/nginx"
+    target-path: "/etc/nginx"
+    nginx-path: "/usr/sbin/nginx"

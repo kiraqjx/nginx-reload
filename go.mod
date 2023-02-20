@@ -1,6 +1,8 @@
-module nginx-reload
+module github.com/kiraqjx/nginx-reload
 
 go 1.19
+
+require gopkg.in/yaml.v3 v3.0.1
 
 require (
 	github.com/kr/fs v0.1.0 // indirect

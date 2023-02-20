@@ -5,7 +5,7 @@ import (
 	"io"
 	"log"
 	"net"
-	"nginx-reload/pkg/vo"
+	"github.com/kiraqjx/nginx-reload/pkg/vo"
 	"path"
 	"time"
 

@@ -2,11 +2,13 @@ package dispenser
 
 import (
 	"bytes"
-	"nginx-reload/pkg/ssh"
-	"nginx-reload/pkg/store"
-	"nginx-reload/pkg/template"
-	"nginx-reload/pkg/vo"
+	"log"
 	"sync"
+
+	"github.com/kiraqjx/nginx-reload/pkg/ssh"
+	"github.com/kiraqjx/nginx-reload/pkg/store"
+	"github.com/kiraqjx/nginx-reload/pkg/template"
+	"github.com/kiraqjx/nginx-reload/pkg/vo"
 )
 
 type Dispenser struct {
@@ -14,10 +16,11 @@ type Dispenser struct {
 	targets  []*ssh.SshConnect
 	store    store.Store
 	lock     *sync.Mutex
+	debug    bool
 }
 
 // new dispenser
-func NewDispenser(store store.Store, templateConfig vo.NginxTemplate, sshConfigs []vo.SshConfig) (*Dispenser, error) {
+func NewDispenser(store store.Store, templateConfig vo.NginxTemplate, sshConfigs []vo.SshConfig, debug bool) (*Dispenser, error) {
 	sshList := make([]*ssh.SshConnect, len(sshConfigs))
 	for _, sshConfig := range sshConfigs {
 		sshConn, err := ssh.NewSshConnect(sshConfig)
@@ -31,6 +34,7 @@ func NewDispenser(store store.Store, templateConfig vo.NginxTemplate, sshConfigs
 		template: nginxTem,
 		targets:  sshList,
 		store:    store,
+		debug:    debug,
 	}, nil
 }
 
@@ -42,6 +46,11 @@ func (d *Dispenser) Do() error {
 	// get nginx conf
 	contents := d.store.AllConfig()
 	s := d.template.Template(contents)
+
+	if d.debug {
+		log.Fatalln(s)
+		return nil
+	}
 
 	// dispenser by ssh
 	for _, target := range d.targets {
