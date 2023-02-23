@@ -1,7 +1,6 @@
 package dispenser
 
 import (
-	"bytes"
 	"log"
 	"sync"
 
@@ -21,7 +20,7 @@ type Dispenser struct {
 
 // new dispenser
 func NewDispenser(store store.Store, templateConfig vo.NginxTemplate, sshConfigs []vo.SshConfig, debug bool) (*Dispenser, error) {
-	sshList := make([]*ssh.SshConnect, len(sshConfigs))
+	sshList := make([]*ssh.SshConnect, 0, len(sshConfigs))
 	for _, sshConfig := range sshConfigs {
 		sshConn, err := ssh.NewSshConnect(sshConfig)
 		if err != nil {
@@ -35,6 +34,7 @@ func NewDispenser(store store.Store, templateConfig vo.NginxTemplate, sshConfigs
 		targets:  sshList,
 		store:    store,
 		debug:    debug,
+		lock:     new(sync.Mutex),
 	}, nil
 }
 
@@ -54,7 +54,7 @@ func (d *Dispenser) Do() error {
 
 	// dispenser by ssh
 	for _, target := range d.targets {
-		err := target.UploadFile(bytes.NewBuffer([]byte(s)), d.template.GetName())
+		err := target.UploadFile([]byte(s), d.template.GetName())
 		if err == nil {
 			target.Reload()
 		}

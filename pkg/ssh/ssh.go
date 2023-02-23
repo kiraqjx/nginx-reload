@@ -2,12 +2,12 @@ package ssh
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"net"
-	"github.com/kiraqjx/nginx-reload/pkg/vo"
 	"path"
 	"time"
+
+	"github.com/kiraqjx/nginx-reload/pkg/vo"
 
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
@@ -62,7 +62,7 @@ func (s *SshConnect) Reload() (string, error) {
 }
 
 // upload file from local path to target path
-func (s *SshConnect) UploadFile(local io.Writer, fileName string) error {
+func (s *SshConnect) UploadFile(local []byte, fileName string) error {
 	sftpClient, err := sftp.NewClient(s.client)
 	if err != nil {
 		log.Fatalln("create sftp client error: ", err)
@@ -74,7 +74,7 @@ func (s *SshConnect) UploadFile(local io.Writer, fileName string) error {
 		return err
 	}
 	defer dstFile.Close()
-	_, err = dstFile.WriteTo(local)
+	_, err = dstFile.Write(local)
 	if err != nil {
 		log.Fatalln("upload file error: ", err)
 		return err

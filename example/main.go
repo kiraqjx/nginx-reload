@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	dispenser, err := dispenser.NewDispenser(&MemoryStore{}, config.NginxTemplate, config.SshConfigs, true)
+	dispenser, err := dispenser.NewDispenser(&MemoryStore{}, config.NginxTemplate, config.SshConfigs, false)
 	if err != nil {
 		panic(err)
 	}

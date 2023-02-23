@@ -1,5 +1,5 @@
 template:
-  name:
+  name: "nginx.conf"
   header: "worker processes 8;\n\nevents{\n    worker_connections 1024;\n}\nstream{\n"
   footer: "}"
 
