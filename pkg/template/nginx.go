@@ -22,11 +22,11 @@ func NewNginxTemplate(config vo.NginxTemplate) *NginxTemplate {
 	}
 }
 
-func (n *NginxTemplate) Template(contents []entity.ProxyConfig) string {
+func (n *NginxTemplate) Template(contents []string) string {
 	var builder strings.Builder
 	builder.WriteString(n.header)
-	contentsString := configsFillTemplate(contents)
-	for _, content := range contentsString {
+	// contentsString := configsFillTemplate(contents)
+	for _, content := range contents {
 		builder.WriteString(content)
 	}
 	builder.WriteString(n.footer)
@@ -61,7 +61,7 @@ func configFillTemplate(config entity.ProxyConfig) string {
 	return fmt.Sprintf(template, config.Id, config.Datasource, config.Port, config.Id)
 }
 
-func configsFillTemplate(configs []entity.ProxyConfig) []string {
+func ConfigsFillTemplate(configs []entity.ProxyConfig) []string {
 	contents := make([]string, len(configs))
 	for _, config := range configs {
 		contents = append(contents, configFillTemplate(config))

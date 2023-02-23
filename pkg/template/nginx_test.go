@@ -20,6 +20,6 @@ func TestTemplate(t *testing.T) {
 		Datasource: "127.0.0.1:3306",
 		Port:       "3306",
 	}}
-	result := template.Template(contents)
+	result := template.Template(ConfigsFillTemplate(contents))
 	fmt.Println(result)
 }

@@ -5,6 +5,7 @@ import (
 
 	"github.com/kiraqjx/nginx-reload/pkg/dispenser"
 	"github.com/kiraqjx/nginx-reload/pkg/entity"
+	"github.com/kiraqjx/nginx-reload/pkg/template"
 	"github.com/kiraqjx/nginx-reload/pkg/vo"
 	"gopkg.in/yaml.v3"
 )
@@ -33,8 +34,8 @@ func main() {
 type MemoryStore struct {
 }
 
-func (ms *MemoryStore) AllConfig() []entity.ProxyConfig {
-	return []entity.ProxyConfig{
+func (ms *MemoryStore) AllConfig() []string {
+	return template.ConfigsFillTemplate([]entity.ProxyConfig{
 		{
 			Id:         "mysql1",
 			Datasource: "127.0.0.1:3306",
@@ -45,5 +46,5 @@ func (ms *MemoryStore) AllConfig() []entity.ProxyConfig {
 			Datasource: "127.0.0.1:3306",
 			Port:       "3306",
 		},
-	}
+	})
 }
